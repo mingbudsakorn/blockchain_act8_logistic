@@ -1,0 +1,15 @@
+version: 1
+accounts:
+  - name: owner
+    coins: ["10000token", "100000000stake"]
+  - name: transporter
+    coins: ["5000token"]
+  - name: customer
+    coins: ["5000token"]
+validator:
+  name: owner
+  staked: "100000000stake"
+
+# Config file to generate account for this activity 
+# which is consist of owner, transporter and customer
+# when run starport serve, genereated mnemonic word will sort by these order

@@ -1,0 +1,32 @@
+Command for logistic
+
+
+List all accounts
+- logisticcli keys list
+
+Check balance
+- logisticcli q account $(logisticcli keys show owner -a)
+
+Init deal
+- logisticcli tx logistic init-deal order2 100token $(logisticcli keys show customer -a) 100 20 --from owner
+
+Transport
+- logisticcli tx logistic transport order2 $(logisticcli keys show transporter -a) --from owner
+
+Update temp
+- logisticcli tx logistic update-temp order2 25 --from transporter
+
+Receive 
+- logisticcli tx logistic receive order2 --from customer
+
+Reject
+- logisticcli tx logistic reject order2 --from customer
+
+List deal
+- logisticcli q logistic list-deal
+
+Get deal
+- logisticcli q logistic get-deal order2
+
+Check Tx status
+- logisticcli q tx <TxHash>
