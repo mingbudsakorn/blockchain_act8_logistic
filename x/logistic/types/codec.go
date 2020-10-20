@@ -13,6 +13,7 @@ func RegisterCodec(cdc *codec.Codec) {
 	cdc.RegisterConcrete(MsgTransport{}, "logistic/Transport", nil)
 	cdc.RegisterConcrete(MsgUpdateTemp{}, "logistic/UpdateTemp", nil)
 	cdc.RegisterConcrete(MsgReceive{}, "logistic/Receive", nil)
+	cdc.RegisterConcrete(MsgReject{}, "logistic/Reject", nil)
 }
 
 // ModuleCdc defines the module codec

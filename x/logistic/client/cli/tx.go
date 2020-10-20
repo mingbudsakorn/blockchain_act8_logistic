@@ -28,6 +28,7 @@ func GetTxCmd(cdc *codec.Codec) *cobra.Command {
 		GetCmdTransport(cdc),
 		GetCmdUpdateTemp(cdc),
 		GetCmdReceive(cdc),
+		GetCmdReject(cdc),
 	)...)
 
 	return logisticTxCmd

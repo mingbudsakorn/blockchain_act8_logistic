@@ -34,3 +34,22 @@ func GetCmdDeal(queryRoute string, cdc *codec.Codec) *cobra.Command {
 		},
 	}
 }
+
+// GetCmdListDeal list all deals
+func GetCmdListDeal(queryRoute string, cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:   "list-deal",
+		Short: "list all deal",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/%s", queryRoute, types.ListDeal), nil)
+			if err != nil {
+				fmt.Printf("could not list Deal\n%s\n", err.Error())
+				return nil
+			}
+			var out []types.Deal
+			cdc.MustUnmarshalJSON(res, &out)
+			return cliCtx.PrintOutput(out)
+		},
+	}
+}

@@ -46,3 +46,17 @@ func getDeal(ctx sdk.Context, path []string, k Keeper) (res []byte, sdkError err
 
 	return res, nil
 }
+
+// function to list deal
+func listDeal(ctx sdk.Context, k Keeper) ([]byte, error) {
+	var dealList []types.Deal
+	store := ctx.KVStore(k.storeKey)
+	iterator := sdk.KVStorePrefixIterator(store, []byte(types.DealPrefix))
+	for ; iterator.Valid(); iterator.Next() {
+		var deal types.Deal
+		k.cdc.MustUnmarshalBinaryLengthPrefixed(store.Get(iterator.Key()), &deal)
+		dealList = append(dealList, deal)
+	}
+	res := codec.MustMarshalJSONIndent(k.cdc, dealList)
+	return res, nil
+}

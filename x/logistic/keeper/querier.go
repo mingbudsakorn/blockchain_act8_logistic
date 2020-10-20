@@ -18,6 +18,8 @@ func NewQuerier(k Keeper) sdk.Querier {
 
 		case types.QueryDeal:
 			return getDeal(ctx, path[1:], k)
+		case types.ListDeal:
+			return listDeal(ctx, k)
 		default:
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "unknown logistic query endpoint")
 		}

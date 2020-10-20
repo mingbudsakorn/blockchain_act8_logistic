@@ -148,3 +148,30 @@ func GetCmdReceive(cdc *codec.Codec) *cobra.Command {
 		},
 	}
 }
+
+// GetCmdReject receive orderid
+// then customer reject product
+func GetCmdReject(cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:   "reject [orderid]",
+		Short: "reject product",
+		Args:  cobra.ExactArgs(1), // Does your request require arguments
+		RunE: func(cmd *cobra.Command, args []string) error {
+
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+			inBuf := bufio.NewReader(cmd.InOrStdin())
+			txBldr := auth.NewTxBuilderFromCLI(inBuf).WithTxEncoder(utils.GetTxEncoder(cdc))
+
+			orderid := args[0]
+
+			msg := types.NewMsgReject(cliCtx.GetFromAddress(), orderid)
+			err := msg.ValidateBasic()
+			if err != nil {
+				return err
+			}
+
+			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
+		},
+	}
+}
+

@@ -15,6 +15,7 @@ const (
 	Created   StateType = "Created"
 	InTransit           = "InTransit"
 	Complete            = "Complete"
+	Cancel				= "Cancel"
 )
 
 type Deal struct {
